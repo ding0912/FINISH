@@ -1,6 +1,6 @@
 // app.js
 import { defaultDataset } from './questions.js';
-import { DEFAULT_BG_URL, applyGlobalBackground, applySakuraBackground } from './bg-config.js';
+import { DEFAULT_BG_URL, DEFAULT_SAKURA_BG_URL, applyGlobalBackground, applySakuraBackground } from './bg-config.js';
 import { parseEmotes } from './emotemap.js';
 import { SoundController } from './audio-controller.js';
 
@@ -17,6 +17,43 @@ class QuizApp {
         this.cropper = null;
         this.currentCropCallback = null;
         this.init();
+    }
+
+    init() {
+        applyGlobalBackground(DEFAULT_BG_URL);
+        this.initCropEvents();
+        this.bindEvents();
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+        this.renderEditorQuestionsList();
+
+        // 在初始化時執行圖片預載
+        this.preloadImages();
+    }
+
+    // 預載所有題目與背景圖片
+    preloadImages() {
+        const imageUrls = new Set();
+
+        // 1. 收集預設與背景圖
+        if (DEFAULT_BG_URL) imageUrls.add(DEFAULT_BG_URL);
+        if (DEFAULT_SAKURA_BG_URL) imageUrls.add(DEFAULT_SAKURA_BG_URL);
+
+        // 2. 收集所有題目的圖片 (題目圖、答對圖、答錯圖)
+        this.questions.forEach(q => {
+            if (q.qPicUrl) imageUrls.add(q.qPicUrl);
+            if (q.imageUrl) imageUrls.add(q.imageUrl);
+            if (q.wrongImageUrl) imageUrls.add(q.wrongImageUrl);
+        });
+
+        // 3. 透過 Image 物件背景下載圖片至快取
+        imageUrls.forEach(url => {
+            if (url && !url.startsWith('data:')) { // 忽略未設定或 Base64
+                const img = new Image();
+                img.src = url;
+            }
+        });
     }
 
     // 開啟圖片裁切視窗
@@ -56,7 +93,7 @@ class QuizApp {
         reader.readAsDataURL(file);
     }
 
-    // 綁定裁切彈窗的按鈕事件 (已加回 init 中呼叫)
+    // 綁定裁切彈窗的按鈕事件
     initCropEvents() {
         const btnConfirm = document.getElementById('btn-confirm-crop');
         const btnCancel = document.getElementById('btn-cancel-crop');
@@ -120,16 +157,6 @@ class QuizApp {
 
         // 清空 input 讓重複選擇同檔名時也能觸發 change
         event.target.value = '';
-    }
-
-    init() {
-        applyGlobalBackground(DEFAULT_BG_URL);
-        this.initCropEvents(); // 加入裁切事件初始化
-        this.bindEvents();
-        if (window.lucide) {
-            lucide.createIcons();
-        }
-        this.renderEditorQuestionsList();
     }
 
     bindEvents() {
@@ -428,6 +455,7 @@ class QuizApp {
 
         document.getElementById('edit-item-modal')?.classList.add('hidden');
         this.renderEditorQuestionsList();
+        this.preloadImages();
         alert(this.editingIndex === -1 ? '新增題目成功！' : '修改題目成功！');
     }
 
@@ -521,20 +549,18 @@ class QuizApp {
         const modal = document.getElementById('quote-modal');
         const modalBlessingText = document.getElementById('modal-blessing-text');
         const modalBlessingImg = document.getElementById('modal-blessing-img');
-        // 取得正確答案文字
         const correctAnswerText = qData.options ? qData.options[qData.correctIndex] : '';
-        
-        // 更新答錯/答對的提示狀態與正確答案文字
+
         const statusTitle = document.getElementById('modal-status-title');
         const correctAnswerElem = document.getElementById('modal-correct-answer-text');
-        
+
         if (statusTitle) {
             statusTitle.textContent = isCorrect ? "🎉 回答正確！" : "❌ 回答錯誤";
-            statusTitle.className = isCorrect 
-                ? "block text-sm font-bold text-emerald-400 mb-1" 
+            statusTitle.className = isCorrect
+                ? "block text-sm font-bold text-emerald-400 mb-1"
                 : "block text-sm font-bold text-rose-400 mb-1";
         }
-        
+
         if (correctAnswerElem) {
             correctAnswerElem.textContent = `正確答案是：${correctAnswerText}`;
             correctAnswerElem.classList.remove('hidden');
@@ -582,10 +608,7 @@ class QuizApp {
         document.getElementById('game-view')?.classList.add('hidden');
         document.getElementById('result-view')?.classList.remove('hidden');
 
-        // 動態渲染感謝人員名單
         this.renderCreditsGrid();
-
-        // 啟動 10 秒自動轉換特別畫面的倒數計時
         this.startCreditsCountdown();
     }
 
@@ -617,7 +640,6 @@ class QuizApp {
             this.creditsCountdownTimer = null;
         }
 
-        // ⬇️ 加入這行，切換至最後畫面時套用 DEFAULT_SAKURA_BG_URL (即 present.jpg)
         applySakuraBackground();
 
         document.getElementById('result-view')?.classList.add('hidden');
