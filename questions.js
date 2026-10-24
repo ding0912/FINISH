@@ -90,7 +90,7 @@ export const defaultDataset = [
             "睡你麻痺起來嗨"
         ],
         "correctIndex": 0,
-        "blessingText": "［願眾人溫柔以待，願你眼裡有光，\n也願每一個明天，都比昨天更接近你理想中的—幸福］\n二週年辛苦了",
+        "blessingText": "［願眾人溫柔以待，\n願你眼裡有光，\n也願每一個明天，\n都比昨天更接近你理想中的—幸福］\n二週年辛苦了",
         "customMessage": "［願眾人溫柔以待，\n願你眼裡有光，\n也願每一個明天，\n都比昨天更接近你理想中的—幸福］\n二週年辛苦了",
         "imageUrl": "./IMG_1716.webp",
         "wrongImageUrl": "./IMG_1716.webp"
@@ -156,3 +156,4 @@ export const defaultDataset = [
         "wrongImageUrl": "./god.png"
     }
 ]
+
