@@ -17,8 +17,8 @@ export const defaultDataset = [
         "correctIndex": 0,
         "customMessage": "恭喜答錯，汪醬大笨蛋明明就是最可愛的(  *'-' ))`-' )!!!!",
         "blessingText": "答對了耶，也希望是耶耶為妳多添了點歡笑，開心是最重要的( ꜆⌯˙꒳˙⌯)꜆♡",
-        "imageUrl": "./yieyyie.webp",
-        "wrongImageUrl": "./yieyyie.webp"
+        "imageUrl": "./yieyie.png",
+        "wrongImageUrl": "./yieyie.png"
     },
     {
         "id": 3,
