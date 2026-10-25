@@ -545,7 +545,7 @@ class QuizApp {
         this.showAnswerModal(isCorrect, currentQ);
     }
 
-    showAnswerModal(isCorrect, qData) {
+showAnswerModal(isCorrect, qData) {
         const modal = document.getElementById('quote-modal');
         const modalBlessingText = document.getElementById('modal-blessing-text');
         const modalBlessingImg = document.getElementById('modal-blessing-img');
@@ -578,7 +578,7 @@ class QuizApp {
         }
 
         // 倒數總時間 (毫秒) 與 更新間隔
-        const totalMs = 30000;
+        const totalMs = 7000;
         const intervalMs = 50;
         let elapsedMs = 0;
 
