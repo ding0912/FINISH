@@ -607,19 +607,7 @@ class QuizApp {
         modal?.addEventListener('click', handleModalClick);
 
         // 使用 setInterval 跑倒數動畫與進度條
-        this.autoAdvanceTimer = setInterval(() => {
-            elapsedMs += intervalMs;
-            const remainingMs = Math.max(0, totalMs - elapsedMs);
-            const remainingSec = (remainingMs / 1000).toFixed(1);
-            const pct = (remainingMs / totalMs) * 100;
-
-            if (advanceBar) advanceBar.style.width = `${pct}%`;
-            if (advanceSec) advanceSec.textContent = `${remainingSec}s`;
-
-            if (remainingMs <= 0) {
-                closeModalAndNext();
-            }
-        }, intervalMs);
+        
     }
 
     nextQuestion() {
