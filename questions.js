@@ -336,7 +336,7 @@ VM28:5 [
         "correctIndex": 2,
         "blessingText": "二周年快樂汪醬,初披露快樂!\n謝謝超可愛的黑柴出現在我的世界裡,未來還要一起走下去!",
         "customMessage": "二周年快樂汪醬,初披露快樂!\n謝謝超可愛的黑柴出現在我的世界裡,未來還要一起走下去!",
-        "imageUrl": "",
-        "wrongImageUrl": ""
+        "imageUrl": "./shi.jpg",
+        "wrongImageUrl": "./shi.jpg"
     }
 ]
