@@ -571,28 +571,55 @@ class QuizApp {
 
         modal?.classList.remove('hidden');
 
+        // 清除舊的計時器
         if (this.autoAdvanceTimer) {
-            clearTimeout(this.autoAdvanceTimer);
+            clearInterval(this.autoAdvanceTimer);
             this.autoAdvanceTimer = null;
         }
 
-        const handleModalClick = () => {
-            modal?.removeEventListener('click', handleModalClick);
+        // 倒數總時間 (毫秒) 與 更新間隔
+        const totalMs = 30000;
+        const intervalMs = 50;
+        let elapsedMs = 0;
+
+        const advanceBar = document.getElementById('auto-advance-bar');
+        const advanceSec = document.getElementById('auto-advance-sec');
+
+        // 初始化進度條與文字
+        if (advanceBar) advanceBar.style.width = '100%';
+        if (advanceSec) advanceSec.textContent = '7.0s';
+
+        // 關閉 Modal 並進入下一題的共用處理函式
+        const closeModalAndNext = () => {
             if (this.autoAdvanceTimer) {
-                clearTimeout(this.autoAdvanceTimer);
+                clearInterval(this.autoAdvanceTimer);
                 this.autoAdvanceTimer = null;
             }
+            modal?.removeEventListener('click', handleModalClick);
             modal?.classList.add('hidden');
             this.nextQuestion();
         };
 
+        const handleModalClick = () => {
+            closeModalAndNext();
+        };
+
         modal?.addEventListener('click', handleModalClick);
 
-        this.autoAdvanceTimer = setTimeout(() => {
-            modal?.removeEventListener('click', handleModalClick);
-            modal?.classList.add('hidden');
-            this.nextQuestion();
-        }, 30000);
+        // 使用 setInterval 跑倒數動畫與進度條
+        this.autoAdvanceTimer = setInterval(() => {
+            elapsedMs += intervalMs;
+            const remainingMs = Math.max(0, totalMs - elapsedMs);
+            const remainingSec = (remainingMs / 1000).toFixed(1);
+            const pct = (remainingMs / totalMs) * 100;
+
+            if (advanceBar) advanceBar.style.width = `${pct}%`;
+            if (advanceSec) advanceSec.textContent = `${remainingSec}s`;
+
+            if (remainingMs <= 0) {
+                closeModalAndNext();
+            }
+        }, intervalMs);
     }
 
     nextQuestion() {
