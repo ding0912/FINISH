@@ -587,7 +587,7 @@ showAnswerModal(isCorrect, qData) {
 
         // 初始化進度條與文字
         if (advanceBar) advanceBar.style.width = '100%';
-        if (advanceSec) advanceSec.textContent = '7.0s';
+        if (advanceSec) advanceSec.textContent = '30.0s';
 
         // 關閉 Modal 並進入下一題的共用處理函式
         const closeModalAndNext = () => {
