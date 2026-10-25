@@ -578,7 +578,7 @@ class QuizApp {
         }
 
         // 倒數總時間 (毫秒) 與 更新間隔
-        const totalMs = 30000;
+        const totalMs = 3000000000;
         const intervalMs = 50;
         let elapsedMs = 0;
 
