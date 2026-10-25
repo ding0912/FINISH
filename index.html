@@ -540,17 +540,24 @@
             </div>
 
             <!-- 將原本的 class 加入 hidden 屬性 -->
-            <div id="modal-auto-advance" class="hidden space-y-2 pt-2 border-t border-slate-800/80">
-                <div class="flex justify-between items-center text-xs text-slate-400 font-medium">
+            <!-- 確保這個外層區塊不要加上 hidden -->
+            <div id="modal-auto-advance" class="space-y-2 pt-2 border-t border-slate-800/80">
+
+                <!-- 1. 隱藏倒數文字 (加上 hidden) -->
+                <div class="hidden flex justify-between items-center text-xs text-slate-400 font-medium">
                     <span id="auto-advance-text">正在自動進入下一題...</span>
                     <span id="auto-advance-sec" class="font-bold text-amber-300">3.0s</span>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+
+                <!-- 2. 隱藏進度條 (加上 hidden) -->
+                <div class="hidden w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
                     <div id="auto-advance-bar"
                         class="bg-gradient-to-r from-amber-400 to-rose-500 h-full w-full transition-all duration-100 ease-linear">
                     </div>
                 </div>
-                <p class="text-[11px] text-slate-500 pt-1">（點擊視窗任意處可立即進入下一題）</p>
+
+                <!-- 3. 正常顯示這行提示 (建議可以加上 text-center 讓它置中更好看) -->
+                <p class="text-[20px] text-slate-500 pt-1 text-center">（點擊視窗任意處可立即進入下一題）</p>
             </div>
         </div>
     </div>
