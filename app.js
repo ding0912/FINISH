@@ -545,7 +545,7 @@ class QuizApp {
         this.showAnswerModal(isCorrect, currentQ);
     }
 
-showAnswerModal(isCorrect, qData) {
+    showAnswerModal(isCorrect, qData) {
         const modal = document.getElementById('quote-modal');
         const modalBlessingText = document.getElementById('modal-blessing-text');
         const modalBlessingImg = document.getElementById('modal-blessing-img');
