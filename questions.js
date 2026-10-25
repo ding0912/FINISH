@@ -160,7 +160,7 @@ export const defaultDataset =[
         "question": "我睡醒了 三點醒的 koppaNYO",
         "eventDate": "2026/07/27",
         "options": [
-            "雷月月月 希果 艾利歐",
+            "雷月月月",
             "艾利歐",
             "希果"
         ],
