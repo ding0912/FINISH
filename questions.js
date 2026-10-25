@@ -70,7 +70,7 @@ export const defaultDataset =[
         "question": "反正目前已知人會對,雞.豬.牛.羊.狗.貓.魚.海豚.蜥蜴做些事",
         "eventDate": "2026/08/03",
         "options": [
-            "沉默",
+            "沉默です",
             "丁丁又噹噹",
             "朔嘎"
         ],
@@ -85,7 +85,7 @@ export const defaultDataset =[
         "question": "別愛上哥 我只是個過客 愛我沒結果",
         "eventDate": "2026/08/19",
         "options": [
-            "沉默",
+            "沉默です",
             "過客",
             "睡你麻痺起來嗨"
         ],
