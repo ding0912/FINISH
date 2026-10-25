@@ -592,7 +592,7 @@ class QuizApp {
             modal?.removeEventListener('click', handleModalClick);
             modal?.classList.add('hidden');
             this.nextQuestion();
-        }, 7000);
+        }, 30000);
     }
 
     nextQuestion() {
